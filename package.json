@@ -68,5 +68,8 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
+  },
+  "dependencies": {
+    "hookable": "^5.5.3"
   }
 }
