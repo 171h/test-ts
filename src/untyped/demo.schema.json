@@ -1,0 +1,48 @@
+{
+  "id": "#",
+  "properties": {
+    "name": {
+      "type": "string",
+      "id": "#name",
+      "default": "earth"
+    },
+    "specs": {
+      "id": "#specs",
+      "properties": {
+        "gravity": {
+          "id": "#specs/gravity",
+          "default": 9.8,
+          "type": "number"
+        },
+        "moons": {
+          "title": "planet moons",
+          "id": "#specs/moons",
+          "default": [
+            "moon"
+          ],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "object",
+      "default": {
+        "gravity": 9.8,
+        "moons": [
+          "moon"
+        ]
+      }
+    }
+  },
+  "type": "object",
+  "default": {
+    "name": "earth",
+    "specs": {
+      "gravity": 9.8,
+      "moons": [
+        "moon"
+      ]
+    }
+  }
+}
