@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  inline <span role="img" aria-label="party popper">🎉</span> emoji
+  🎉
+  <p>This text is <sup>superscripted</sup></p>
+
+  <p>
+    <code>remark-numbered-footnote-labels</code> is a quality plugin<sup id="fnref-quality"><a href="#fn-quality"
+        class="footnote-ref">1</a></sup>!
+  </p>
+  <div class="footnotes">
+    <hr />
+    <ol>
+      <li id="fn-quality">
+        If you do not find it so, please file a GitHub issue or pull request!<a href="#fnref-quality"
+          class="footnote-backref">↩</a>
+      </li>
+    </ol>
+  </div>
+  <hr>
+  <p>This plugin works on <ruby>Markdown AST<rp>(</rp><rt>MDAST</rt><rp>)</rp></p>
+  <ruby>
+    汉 <rp>(</rp><rt>han</rt><rp>)</rp>
+    字 <rp>(</rp><rt>zi</rt><rp>)</rp>
+  </ruby>
+  
+  <h1>Images</h1>
+<p>
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  tempor incididunt ut labore et dolore magna aliqua
+</p>
+<div class="my-figure-container">
+  <figure class="my-figure">
+    <img
+      src="https://img.id/dog.png"
+      alt="This is a caption and image alt property"
+    />
+    <figcaption>This is a caption and image alt property</figcaption>
+  </figure>
+  <figure class="my-figure">
+    <img
+      src="https://img.id/cat.png"
+      alt="These two images will be children &#x27;rehype-container&#x27;"
+    />
+    <figcaption>
+      These two images will be children 'rehype-container'
+    </figcaption>
+  </figure>
+</div>
+<p>
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  tempor incididunt ut labore et dolore magna aliqua
+</p>
+<figure class="my-figure">
+  <img
+    src="https://img.id/cat.png"
+    alt="These two images will be children &#x27;rehype-container&#x27;"
+  />
+  <figcaption>These two images will be children 'rehype-container'</figcaption>
+</figure>
+</body>
+
+</html>

@@ -243,3 +243,37 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 ::: warning
 *here be dragons*
 :::
+
+
+### table
+
+Nom     |   Age
+------|-----
+Fred |   39
+Sam |   38
+Alice  |   35
+Mathilde  | 35
+
++-------+----------+------+
+| Table Headings   | Here |
++-------+----------+------+
+| Sub   | Headings | Too  |
++=======+==========+======+
+| cell  | column spanning |
++ spans +----------+------+
+| rows  | normal   | cell |
++-------+----------+------+
+| multi | cells can be    |
+| line  | *formatted*     |
+|       | **paragraphs**  |
+| cells |                 |
+| too   |                 |
++-------+-----------------+
+
+Nom     |   Age
+------|-----
+Fred |   39
+Sam |   38
+Alice  |   35
+Mathilde  | 35
+Table: Tableau des âges
