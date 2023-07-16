@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    p {
+      font-weight: 100;
+    }
+
+    body section:first-child,
+    h1+section,
+    h2+section,
+    h3+section,
+    h4+section,
+    h5+section,
+    h6+section {
+      counter-reset: section-counters;
+    }
+
+    section h1::before,
+    section h2::before,
+    section h3::before {
+      counter-increment: section-counters;
+      content: counters(section-counters, '.') " ";
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h1> Lorem, ipsum dolor. </h1>
+    <section>
+      <h2>HTML</h2>
+      <p>Lorem, ipsum dolor.</p>
+      <p>Ex, omnis libero!</p>
+    </section>
+    <section>
+      <h2>CSS</h2>
+      <section>
+        <h3>Lorem, ipsum dolor.</h3>
+        <p>Lorem ipsum dolor sit.</p>
+        <p>Nemo repellat aut rerum!</p>
+        <p>Magnam porro expedita rerum.</p>
+      </section>
+      <section>
+        <h3>Nemo, aspernatur doloribus?</h3>
+        <p>Lorem ipsum dolor sit.</p>
+        <p>Nemo repellat aut rerum!</p>
+        <p>Magnam porro expedita rerum.</p>
+      </section>
+      <section>
+        <h3>Magnam, atque consequatur.</h3>
+        <p>Lorem ipsum dolor sit.</p>
+        <p>Nemo repellat aut rerum!</p>
+        <p>Magnam porro expedita rerum.</p>
+      </section>
+    </section>
+    <section>
+      <h2>JavaScript</h2>
+    </section>
+  </section>
+  <section>
+    <h1>Lorem ipsum dolor sit.</h1>
+    <p>Lorem ipsum dolor sit.</p>
+    <p>Nemo repellat aut rerum!</p>
+    <p>Magnam porro expedita rerum.</p>
+  </section>
+  <section>
+    <h1>Eligendi voluptatibus quaerat sunt!</h1>
+    <p>Lorem ipsum dolor sit.</p>
+    <p>Nemo repellat aut rerum!</p>
+    <p>Magnam porro expedita rerum.</p>
+  </section>
+  <section>
+    <h1>Ad voluptates eum expedita?</h1>
+    <p>Lorem ipsum dolor sit.</p>
+    <p>Nemo repellat aut rerum!</p>
+    <p>Magnam porro expedita rerum.</p>
+  </section>
+</body>
+
+</html>

@@ -5,9 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    h1,h2{
+      margin-block-start: 0px;
+      margin-block-end: 0px;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      font-size: 14px;
+    }
+  </style>
 </head>
 
 <body>
+  
   inline <span role="img" aria-label="party popper">🎉</span> emoji
   🎉
   <p>This text is <sup>superscripted</sup></p>
@@ -26,46 +36,64 @@
     </ol>
   </div>
   <hr>
-  <p>This plugin works on <ruby>Markdown AST<rp>(</rp><rt>MDAST</rt><rp>)</rp></p>
+  <p>This plugin works on <ruby>Markdown AST<rp>(</rp>
+      <rt>MDAST</rt>
+      <rp>)</rp>
+  </p>
   <ruby>
-    汉 <rp>(</rp><rt>han</rt><rp>)</rp>
-    字 <rp>(</rp><rt>zi</rt><rp>)</rp>
+    汉 <rp>(</rp>
+    <rt>han</rt>
+    <rp>)</rp>
+    字 <rp>(</rp>
+    <rt>zi</rt>
+    <rp>)</rp>
   </ruby>
-  
+
   <h1>Images</h1>
-<p>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua
-</p>
-<div class="my-figure-container">
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua
+  </p>
+  <div class="my-figure-container">
+    <figure class="my-figure">
+      <img src="https://img.id/dog.png" alt="This is a caption and image alt property" />
+      <figcaption>This is a caption and image alt property</figcaption>
+    </figure>
+    <figure class="my-figure">
+      <img src="https://img.id/cat.png" alt="These two images will be children &#x27;rehype-container&#x27;" />
+      <figcaption>
+        These two images will be children 'rehype-container'
+      </figcaption>
+    </figure>
+  </div>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua
+  </p>
   <figure class="my-figure">
-    <img
-      src="https://img.id/dog.png"
-      alt="This is a caption and image alt property"
-    />
-    <figcaption>This is a caption and image alt property</figcaption>
+    <img src="https://img.id/cat.png" alt="These two images will be children &#x27;rehype-container&#x27;" />
+    <figcaption>These two images will be children 'rehype-container'</figcaption>
   </figure>
-  <figure class="my-figure">
-    <img
-      src="https://img.id/cat.png"
-      alt="These two images will be children &#x27;rehype-container&#x27;"
-    />
-    <figcaption>
-      These two images will be children 'rehype-container'
-    </figcaption>
-  </figure>
-</div>
-<p>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua
-</p>
-<figure class="my-figure">
-  <img
-    src="https://img.id/cat.png"
-    alt="These two images will be children &#x27;rehype-container&#x27;"
-  />
-  <figcaption>These two images will be children 'rehype-container'</figcaption>
-</figure>
+  <hr>
+  <p>This text is <sup>superscripted</sup></p>
+  <hr>
+  <div style="list-style-type: decimal;">
+    <h1 style="display: list-item; text-align: -webkit-match-parent;">Lorem, ipsum.</h1>
+    <h1 style="display: list-item; text-align: -webkit-match-parent;">Lorem, ipsum.</h1>
+    <h1 style="display: list-item; text-align: -webkit-match-parent;">Lorem, ipsum.</h1>
+    <h1 style="display: list-item; text-align: -webkit-match-parent;">Lorem, ipsum.</h1>
+    <h2 style="display: list-item; text-align: -webkit-match-parent;">Lorem, ipsum.</h2>
+  </div>
+
+  <ul>
+    <li>Lorem, ipsum dolor.</li>
+    <li>Impedit, consectetur vitae.</li>
+    <li>Possimus, doloremque maxime.</li>
+    <li>Excepturi, reprehenderit dolorum?</li>
+    <li>Quasi, provident mollitia?</li>
+    <li>Doloremque, commodi possimus.</li>
+  </ul>
+
 </body>
 
 </html>

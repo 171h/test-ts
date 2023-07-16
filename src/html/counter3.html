@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    @counter-style circled-alpha {
+      system: fixed;
+      symbols: Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ;
+      suffix: " ";
+    }
+
+    /* 字母编号 */
+    @counter-style abc {
+      system: alphabetic;
+      symbols: a b c d e f g h i j k l m n o p q r s t u v w x y z;
+      suffix: ". ";
+    }
+
+    /* 大写罗马数字 */
+    @counter-style upper-roman {
+      system: additive;
+      range: 1 3999;
+      additive-symbols:
+        1000 M,
+        900 CM,
+        500 D,
+        400 CD,
+        100 C,
+        90 XC,
+        50 L,
+        40 XL,
+        10 X,
+        9 IX,
+        5 V,
+        4 IV,
+        1 I;
+    }
+
+    /* 小写罗马数字 */
+    @counter-style lower-roman {
+      system: additive;
+      range: 1 3999;
+      additive-symbols:
+        1000 m,
+        900 cm,
+        500 d,
+        400 cd,
+        100 c,
+        90 xc,
+        50 l,
+        40 xl,
+        10 x,
+        9 ix,
+        5 v,
+        4 iv,
+        1 i;
+    }
+
+    /*两位数字编号-01,02,03……10,11*/
+    @counter-style decimal-leading-zero {
+      system: extends decimal;
+      pad: 2 '0';
+    }
+
+    /*中文数字编号*/
+    @counter-style cjk-decimal {
+      system: numeric;
+      range: 0 infinite;
+      symbols: \3007 \4E00 \4E8C \4E09 \56DB \4E94 \516D \4E03 \516B \4E5D;
+      /* 〇 一 二 三 四 五 六 七 八 九 */
+      suffix: "\3001";
+      /* "、" */
+    }
+
+    @counter-style cjk-decimal2 {
+      /* this is a predefined complex style in the CSS3 Counter Styles specification */
+      system: additive;
+      range: -9999 9999;
+      additive-symbols: 9000 九千, 8000 八千, 7000 七千, 6000 六千, 5000 五千, 4000 四千, 3000 三千, 2000 二千, 1000 一千, 900 九百, 800 八百, 700 七百, 600 六百, 500 五百, 400 四百, 300 三百, 200 二百, 100 一百, 90 九十, 80 八十, 70 七十, 60 六十, 50 五十, 40 四十, 30 三十, 20 二十, 10 一十, 9 九, 8 八, 7 七, 6 六, 5 五, 4 四, 3 三, 2 二, 1 一, 0 \96F6;
+      suffix: '、 ';
+      negative: "\8D1F";
+    }
+
+    /*天干编号*/
+    @counter-style cjk-heavenly-stem {
+      system: alphabetic;
+      symbols: "\7532" "\4E59" "\4E19" "\4E01" "\620A" "\5DF1" "\5E9A" "\8F9B" "\58EC" "\7678";
+      /* 甲 乙 丙 丁 戊 己 庚 辛 壬 癸 */
+      suffix: "、";
+    }
+
+    /*地支编号*/
+    @counter-style cjk-earthly-branch {
+      system: alphabetic;
+      symbols: "\5B50" "\4E11" "\5BC5" "\536F" "\8FB0" "\5DF3" "\5348" "\672A" "\7533" "\9149" "\620C" "\4EA5";
+      /* 子 丑 寅 卯 辰 巳 午 未 申 酉 戌 亥 */
+      suffix: "、";
+    }
+
+    /*中文大写编号-壹仟壹佰壹拾壹*/
+    @counter-style simp-chinese-formal {
+      /* this is a predefined complex style in the CSS3 Counter Styles specification */
+      system: additive;
+      range: -9999 9999;
+      additive-symbols: 9000 \7396\4EDF, 8000 \634c\4EDF, 7000 \67d2\4EDF, 6000 \9646\4EDF, 5000 \4f0d\4EDF, 4000 \8086\4EDF, 3000 \53C1\4EDF, 2000 \8CB3\4EDF, 1000 \58F9\4EDF, 900 \7396\4F70, 800 \634C\4F70, 700 \67D2\4F70, 600 \9646\4F70, 500 \4f0d\4F70, 400 \56DB\4F70, 300 \53C1\4F70, 200 \8CB3\4F70, 100 \58F9\4F70, 90 \7396\62FE, 80 \634C\62FE, 70 \67D2\62FE, 60 \9646\62FE, 50 \4f0d\62FE, 40 \8086\62FE, 30 \53C1\62FE, 20 \8CB3\62FE, 10 \58F9\62FE, 9 \7396, 8 \634C, 7 \67D2, 6 \9646, 5 \4f0d, 4 \8086, 3 \53C1, 2 \8CB3, 1 \58F9, 0 \96F6;
+      suffix: '、 ';
+      negative: "\8D1F";
+    }
+
+    p {
+      font-weight: 100;
+    }
+
+    body section:first-of-type {
+      counter-reset: section1-counters;
+    }
+
+    h1~section:first-of-type {
+      counter-reset: section2-counters;
+      
+    }
+
+    h2~section:first-of-type {
+      counter-reset: section3-counters;
+    }
+
+    h3~section:first-of-type {
+      counter-reset: section4-counters;
+    }
+
+    h4~section:first-of-type {
+      counter-reset: section5-counters;
+    }
+
+    h5~section:first-of-type {
+      counter-reset: section6-counters;
+    }
+
+    section h1::before {
+      counter-increment: section1-counters;
+      content: counter(section1-counters) " ";
+    }
+
+    section h2::before {
+      counter-increment: section2-counters;
+      content: counter(section1-counters) '.' counter(section2-counters) " ";
+    }
+
+    section h3::before {
+      counter-increment: section3-counters;
+      content: counter(section1-counters) '.' counter(section2-counters) '.' counter(section3-counters)" ";
+    }
+
+    section h4::before {
+      counter-increment: section4-counters;
+      content: counter(section1-counters) '.' counter(section2-counters) '.' counter(section3-counters) '.' counter(section4-counters) " ";
+    }
+
+    section h5::before {
+      counter-increment: section5-counters;
+      content: counter(section1-counters) '.' counter(section2-counters) '.' counter(section3-counters) '.' counter(section4-counters) '.' counter(section5-counters) " ";
+    }
+
+    section h6::before {
+      counter-increment: section6-counters;
+      content: counter(section6-counters) ") ";
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h1> Lorem, ipsum dolor. </h1>
+    <section>
+      <h2>HTML</h2>
+      <p>Lorem, ipsum dolor.</p>
+      <p>Ex, omnis libero!</p>
+    </section>
+    <section>
+      <h2>CSS</h2>
+      <section>
+        <h3>Lorem, ipsum dolor.</h3>
+        <p>Lorem ipsum dolor sit.</p>
+        <p>Nemo repellat aut rerum!</p>
+        <p>Magnam porro expedita rerum.</p>
+      </section>
+      <section>
+        <h3>Nemo, aspernatur doloribus?</h3>
+        <p>Lorem ipsum dolor sit.</p>
+        <p>Nemo repellat aut rerum!</p>
+        <p>Magnam porro expedita rerum.</p>
+      </section>
+      <section>
+        <h3>Magnam, atque consequatur.</h3>
+        <p>Lorem ipsum dolor sit.</p>
+        <p>Nemo repellat aut rerum!</p>
+        <p>Magnam porro expedita rerum.</p>
+        <section>
+          <h4>Lorem, ipsum dolor.</h4>
+          <p>Lorem, ipsum dolor.</p>
+          <p>Lorem, ipsum dolor.</p>
+          <p>Lorem, ipsum dolor.</p>
+        </section>
+        <section>
+          <h4>Lorem, ipsum dolor.</h4>
+          <section>
+            <h5>Lorem ipsum dolor sit amet.</h5>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </section>
+          <section>
+            <h5>Lorem ipsum dolor sit amet.</h5>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </section>
+          <section>
+            <h5>Lorem ipsum dolor sit amet.</h5>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <section>
+              <h6>Lorem ipsum dolor sit amet consectetur.</h6>
+              <p>Lorem ipsum dolor sit amet consectetur.</p>
+              <p>Lorem ipsum dolor sit amet consectetur.</p>
+            </section>
+            <section>
+              <h6>Lorem ipsum dolor sit amet consectetur.</h6>
+              <p>Lorem ipsum dolor sit amet consectetur.</p>
+              <p>Lorem ipsum dolor sit amet consectetur.</p>
+            </section>
+            <section>
+              <h6>Lorem ipsum dolor sit amet consectetur.</h6>
+              <p>Lorem ipsum dolor sit amet consectetur.</p>
+              <p>Lorem ipsum dolor sit amet consectetur.</p>
+            </section>
+          </section>
+        </section>
+      </section>
+    </section>
+    <section>
+      <h2>JavaScript</h2>
+    </section>
+  </section>
+  <section>
+    <h1>Lorem ipsum dolor sit.</h1>
+    <p>Lorem ipsum dolor sit.</p>
+    <p>Nemo repellat aut rerum!</p>
+    <p>Magnam porro expedita rerum.</p>
+  </section>
+  <section>
+    <h1>Eligendi voluptatibus quaerat sunt!</h1>
+    <p>Lorem ipsum dolor sit.</p>
+    <p>Nemo repellat aut rerum!</p>
+    <p>Magnam porro expedita rerum.</p>
+  </section>
+  <section>
+    <h1>Ad voluptates eum expedita?</h1>
+    <p>Lorem ipsum dolor sit.</p>
+    <p>Nemo repellat aut rerum!</p>
+    <p>Magnam porro expedita rerum.</p>
+  </section>
+  <h1>Lorem.</h1>
+  <h1>Quam?</h1>
+  <h1>Sapiente.</h1>
+  <h1>Quibusdam?</h1>
+  <h1>Animi!</h1>
+  <h1>Dolor.</h1>
+  <h1>Id!</h1>
+  <h1>Assumenda!</h1>
+  <h1>Earum.</h1>
+  <h1>Nobis.</h1>
+  <h1>Doloremque.</h1>
+  <h1>Minima.</h1>
+  <h1>Accusamus?</h1>
+  <h1>Minima?</h1>
+  <h1>Veritatis.</h1>
+  <h1>Asperiores?</h1>
+  <h1>Deleniti.</h1>
+  <h1>Reiciendis.</h1>
+  <h1>Dignissimos.</h1>
+  <h1>Nemo!</h1>
+  <h1>Sunt.</h1>
+  <h1>Fuga!</h1>
+  <h1>Earum.</h1>
+  <h1>Impedit?</h1>
+  <h1>Nostrum!</h1>
+  <h1>Itaque!</h1>
+  <h1>Tenetur!</h1>
+  <h1>Possimus?</h1>
+  <h1>Minus.</h1>
+  <h1>Repellat?</h1>
+  <h1>Accusamus.</h1>
+  <h1>Accusamus.</h1>
+  <h1>Enim!</h1>
+  <h1>Molestias.</h1>
+  <h1>Nostrum!</h1>
+  <h1>Voluptates!</h1>
+  <h1>Inventore!</h1>
+  <h1>Qui!</h1>
+  <h1>Odio.</h1>
+  <h1>At?</h1>
+</body>
+
+</html>

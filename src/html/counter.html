@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      counter-reset: css-counter;
+    }
+    div p {
+      counter-increment: css-counter;
+    }
+    div p::before {
+      content: counter(css-counter) ". ";
+    }
+    ul {
+      list-style-type: none;
+      counter-reset: css-counters;
+    }
+    ul li::before {
+      counter-increment: css-counters;
+      content: counters(css-counters, '.') " ";
+    }
+    section {
+      counter-reset: section-counters;
+    }
+    section h1::before,
+    section h2::before,
+    section h3::before {
+      counter-increment: section-counters;
+      content: counters(section-counters, '.') " ";
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p>Lorem, ipsum.</p>
+    <p>Praesentium, totam.</p>
+    <p>Tenetur, blanditiis!</p>
+  </div>
+  <hr>
+  <ul>
+    <li>
+      Lorem, ipsum dolor.
+      <ul>
+        <li>HTML</li>
+        <li>CSS
+          <ul>
+            <li>Lorem, ipsum dolor.</li>
+            <li>Nemo, aspernatur doloribus?</li>
+            <li>Magnam, atque consequatur.</li>
+          </ul>
+        </li>
+        <li>JavaScript</li>
+      </ul>
+    </li>
+    <li>Lorem ipsum dolor sit.</li>
+    <li>Eligendi voluptatibus quaerat sunt!</li>
+    <li>Ad voluptates eum expedita?</li>
+  </ul>
+  <hr>
+  <section>
+    <h1>
+      Lorem, ipsum dolor.
+      <section>
+        <h2>HTML</h2>
+        <h2>CSS
+          <section>
+            <h3>Lorem, ipsum dolor.</h3>
+            <h3>Nemo, aspernatur doloribus?</h3>
+            <h3>Magnam, atque consequatur.</h3>
+          </section>
+        </h2>
+        <h2>JavaScript</h2>
+      </section>
+    </h1>
+    <h1>Lorem ipsum dolor sit.</h1>
+    <h1>Eligendi voluptatibus quaerat sunt!</h1>
+    <h1>Ad voluptates eum expedita?</h1>
+  </section>
+  <hr>
+  
+</body>
+</html>
