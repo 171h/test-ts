@@ -23,3 +23,13 @@ type AA = [1, 2, 3]
 type ExampleAA = A extends [infer First, ...infer Rest] ? First : never
 type BB = '123'
 type ExampleBB = BB extends `${infer FirstChar}${infer Rest}` ? FirstChar : never
+
+// interface Parent <: Node {
+//   children: [Node]
+// }
+
+// interface Point {
+//   line: number >= 1
+//   column: number >= 1
+//   offset: number >= 0?
+// }
