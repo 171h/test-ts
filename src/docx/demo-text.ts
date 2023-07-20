@@ -1,11 +1,16 @@
 import * as fs from 'node:fs'
-import { BorderStyle, Document, HeadingLevel, IBorderOptions, Packer, Paragraph, SectionType, SymbolRun, TextRun, UnderlineType } from 'docx'
+import { BorderStyle, CheckBox, Document, HeadingLevel, IBorderOptions, Packer, Paragraph, SectionType, SymbolRun, TextRun, UnderlineType } from 'docx'
 
 const doc = new Document({
   sections: [{
     children: [
       new Paragraph({
         children: [
+          new CheckBox({
+            checked: true,
+            checkedState: { value: '2611' },
+            uncheckedState: { value: '2610' },
+          }),
           new TextRun('My awesome text here for my university dissertation.'),
           new TextRun('Foo Bar'),
           new TextRun({
@@ -86,6 +91,14 @@ const doc = new Document({
             text: 'new text',
           }),
         ],
+        indent: {
+          start: 720,
+          end: 720,
+          firstLine: 720,
+          hanging: 720,
+          left: 720,
+          right: 720,
+        },
       }),
     ],
   }],

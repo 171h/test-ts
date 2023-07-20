@@ -27,59 +27,22 @@ const doc = new Document({
 
       },
       children: [
+        // new Paragraph({
+        //   children: [
+        //     new Paragraph({
+        //       children: [
+        //         new TextRun('Hello World1'),
+        //       ],
+        //     }),
+        //   ],
+        // }),
+
+        // new TextRun('Hello World1'),
+
         new Paragraph({
           children: [
             new TextRun('Hello World1'),
-            new TextRun({
-              text: 'Foo Bar',
-              bold: true,
-            }),
-            new TextRun({
-              text: '\tGithub is the best',
-              bold: true,
-            }),
-            new SymbolRun('F071'),
           ],
-          heading: HeadingLevel.HEADING_1,
-          border: {
-            bottom: {
-              style: BorderStyle.DASHED,
-              size: 10,
-              color: '#FF0000',
-            },
-          },
-          widowControl: true,
-          spacing: {
-            before: 100,
-            after: 100,
-          },
-        }),
-        new Paragraph({
-          children: [
-            new TextRun('Hello World1'),
-            new TextRun({
-              text: 'Foo Bar',
-              bold: true,
-            }),
-            new TextRun({
-              text: '\tGithub is the best',
-              bold: true,
-            }),
-            new SymbolRun('F071'),
-          ],
-          heading: HeadingLevel.HEADING_1,
-          border: {
-            bottom: {
-              style: BorderStyle.DASHED,
-              size: 10,
-              color: '#FF0000',
-            },
-          },
-          widowControl: true,
-          spacing: {
-            before: 100,
-            after: 100,
-          },
         }),
       ],
     },
@@ -88,7 +51,7 @@ const doc = new Document({
 
 // Used to export the file into a .docx file
 Packer.toBuffer(doc).then((buffer) => {
-  fs.writeFileSync('./src/docx/My Document.docx', buffer)
+  fs.writeFileSync('./src/docx/demo.docx', buffer)
 })
 
 // Done! A file called 'My Document.docx' will be in your file system.
