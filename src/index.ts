@@ -3,7 +3,31 @@
 // import { testDebounce as testDebounce2 } from './debounce2'
 // import './untyped/demo'
 
-import './docx/demo3'
+// import './docx/demo-headers&footers'
+
+// import './docx/demo-hyperlinks'
+
+// import './docx/demo-numbering'
+
+// import './docx/demo-tables'
+
+// import './docx/demo-toc'
+
+// import './docx/demo-page-numbers'
+
+// import './docx/demo-change-tracking'
+
+// import './docx/demo-math'
+
+// import './docx/demo-comments'
+// import './docx/demo-footnotes'
+import './docx/demo-styling'
+
+// import './docx/demo-images'
+
+// import './docx/demo-text'
+
+// import './docx/demo-bullet-points'
 
 // main()
 
