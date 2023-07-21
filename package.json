@@ -51,6 +51,7 @@
     "debounce": "^1.2.1",
     "docx": "^8.2.0",
     "hookable": "^5.5.3",
+    "jss-cli": "^6.0.2",
     "markdown-it": "^13.0.1",
     "monaco-editor": "^0.40.0",
     "untyped": "^1.3.2"
