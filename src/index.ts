@@ -20,9 +20,10 @@
 // import './docx/demo-math'
 
 // import './docx/demo-comments'
-// import './docx/demo-footnotes'
+import './docx/demo-footnotes'
+
 // import './docx/demo-styling'
-import './docx/demo-advanced-styling'
+// import './docx/demo-advanced-styling'
 
 // import './docx/demo-images'
 

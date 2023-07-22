@@ -21,6 +21,10 @@ const doc = new Document({
               children: [' World!'],
             }),
             new FootnoteReferenceRun(2),
+            new TextRun({
+              children: [' World2!'],
+            }),
+            // new FootnoteReferenceRun(2),
           ],
         }),
       ],
