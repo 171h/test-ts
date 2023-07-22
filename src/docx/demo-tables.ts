@@ -1,4 +1,5 @@
 import * as fs from 'node:fs'
+import * as path from 'node:path'
 import type { INumberingOptions } from 'docx'
 import {
   AlignmentType, BorderStyle, Document, HeadingLevel,
@@ -6,10 +7,14 @@ import {
   Paragraph, SectionType, SymbolRun, Table, TableCell, TableRow, TextRun, WidthType,
 } from 'docx'
 
+const styles = fs.readFileSync(path.resolve('./src/docx/assets/custom-styles.xml'), 'utf-8')
+
 const doc = new Document({
+  externalStyles: styles,
   sections: [{
     children: [
       new Table({
+        style: 'MyCustomTableStyle',
         columnWidths: [3505, 5505],
         rows: [
           new TableRow({

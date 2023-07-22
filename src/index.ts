@@ -9,7 +9,7 @@
 
 // import './docx/demo-numbering'
 
-// import './docx/demo-tables'
+import './docx/demo-tables'
 
 // import './docx/demo-toc'
 
@@ -20,7 +20,7 @@
 // import './docx/demo-math'
 
 // import './docx/demo-comments'
-import './docx/demo-footnotes'
+// import './docx/demo-footnotes'
 
 // import './docx/demo-styling'
 // import './docx/demo-advanced-styling'
