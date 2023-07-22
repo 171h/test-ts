@@ -29,8 +29,9 @@
 // import './docx/demo-text'
 
 // import './docx/demo'
+import './docx/demo-section'
 
-import './jss-cli/demo'
+// import './jss-cli/demo'
 
 // import './docx/demo-bullet-points'
 
