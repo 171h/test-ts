@@ -22,14 +22,14 @@
 // import './docx/demo-comments'
 // import './docx/demo-footnotes'
 // import './docx/demo-styling'
-// import './docx/demo-advanced-styling'
+import './docx/demo-advanced-styling'
 
 // import './docx/demo-images'
 
 // import './docx/demo-text'
 
 // import './docx/demo'
-import './docx/demo-section'
+// import './docx/demo-section'
 
 // import './jss-cli/demo'
 
