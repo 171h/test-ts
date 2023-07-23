@@ -14,23 +14,27 @@ const doc = new Document({
   sections: [{
     children: [
       new Table({
-        style: 'MyCustomTableStyle',
-        columnWidths: [3505, 5505],
+        // style: 'MyCustomTableStyle',
+        // columnWidths: [3505, 5505],
+        width: {
+          size: 100,
+          type: WidthType.PERCENTAGE,
+        },
         rows: [
           new TableRow({
             children: [
               new TableCell({
-                width: {
-                  size: 3505,
-                  type: WidthType.DXA,
-                },
+                // width: {
+                //   size: 3505,
+                //   type: WidthType.DXA,
+                // },
                 children: [new Paragraph('Hello')],
               }),
               new TableCell({
-                width: {
-                  size: 5505,
-                  type: WidthType.DXA,
-                },
+                // width: {
+                //   // size: 5505,
+                //   type: WidthType.DXA,
+                // },
                 children: [],
               }),
             ],
@@ -38,17 +42,17 @@ const doc = new Document({
           new TableRow({
             children: [
               new TableCell({
-                width: {
-                  size: 3505,
-                  type: WidthType.DXA,
-                },
+                // width: {
+                //   size: 3505,
+                //   type: WidthType.DXA,
+                // },
                 children: [],
               }),
               new TableCell({
-                width: {
-                  size: 5505,
-                  type: WidthType.DXA,
-                },
+                // width: {
+                //   size: 5505,
+                //   type: WidthType.DXA,
+                // },
                 children: [new Paragraph('World')],
               }),
             ],
