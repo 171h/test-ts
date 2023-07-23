@@ -9,7 +9,7 @@
 
 // import './docx/demo-numbering'
 
-import './docx/demo-tables'
+// import './docx/demo-tables'
 
 // import './docx/demo-toc'
 
@@ -42,3 +42,5 @@ import './docx/demo-tables'
 
 // testDebounce()
 // testDebounce2()
+
+import './ofetch/demo'
