@@ -4,6 +4,7 @@
     "no-only-tests/no-only-tests": "off",
     "unused-imports/no-unused-vars": "off",
     "unused-imports/no-unused-imports": "off",
-    "@typescript-eslint/no-namespace": "off"
+    "@typescript-eslint/no-namespace": "off",
+    "no-console": "off",
   }
 }

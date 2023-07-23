@@ -43,4 +43,8 @@
 // testDebounce()
 // testDebounce2()
 
-import './ofetch/demo'
+// import './ofetch/demo'
+
+// import './is-url-http/demo'
+
+import './path/demo'

@@ -48,9 +48,13 @@
   },
   "dependencies": {
     "@171h/debounce": "^1.1.1",
+    "@171h/log": "^2.2.0",
+    "@171h/utils": "^0.4.3",
     "debounce": "^1.2.1",
     "docx": "^8.2.0",
     "hookable": "^5.5.3",
+    "is-url-http": "^2.3.5",
+    "isurl": "^4.0.2",
     "jss-cli": "^6.0.2",
     "markdown-it": "^13.0.1",
     "monaco-editor": "^0.40.0",
