@@ -26,6 +26,7 @@
 // import './docx/demo-advanced-styling'
 
 // import './docx/demo-images'
+import './docx/demo-images2'
 
 // import './docx/demo-text'
 
@@ -47,4 +48,4 @@
 
 // import './is-url-http/demo'
 
-import './path/demo'
+// import './path/demo'
