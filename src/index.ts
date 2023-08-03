@@ -53,11 +53,16 @@ import { Logger } from '@171h/log'
 // import './is-url-http/demo'
 
 // import './path/demo'
-import './path/__dirname'
+// import './path/__dirname'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+// const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const logger = new Logger('src/index.ts')
+// const logger = new Logger('src/index.ts')
 
-logger.info('__dirname', __dirname)
-logger.info('import.meta.url', import.meta.url)
+// logger.info('__dirname', __dirname)
+// logger.info('import.meta.url', import.meta.url)
+
+// import './qs/demo'
+// import './randomstring/demo'
+
+import './path/join-resolve'
