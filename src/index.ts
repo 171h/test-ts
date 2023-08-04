@@ -68,3 +68,5 @@ import { Logger } from '@171h/log'
 // import './path/join-resolve'
 
 import './jszip/demo'
+
+// import './pathe/demo'
