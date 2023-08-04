@@ -77,4 +77,6 @@ import { Logger } from '@171h/log'
 
 // import './fflate/multi-files'
 
-import './fflate/unzip'
+// import './fflate/unzip'
+
+import './url/demo'
