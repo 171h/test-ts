@@ -33,3 +33,6 @@ type ExampleBB = BB extends `${infer FirstChar}${infer Rest}` ? FirstChar : neve
 //   column: number >= 1
 //   offset: number >= 0?
 // }
+
+type GetReturnType2<Func extends Function> =
+  Func extends (arg: infer Arg extends 'buffer' | 'u8') => infer ReturnType ? ReturnType : never
