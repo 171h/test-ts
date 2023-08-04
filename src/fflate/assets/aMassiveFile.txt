@@ -1,0 +1,7 @@
+- HTML & CSS到底是什么，有什么用？
+    - 它们是两门语言。
+    - 人和人沟通的语言：自然语言
+    - 人和计算机沟通的工具：计算机语言。
+    - HTML + CSS +Javascript = 网页
+    - HTML: Hyper Text Markup Language 超文本标记语言；定义网页中有什么。
+    - CSS：Cascading Style Sheets 层叠样式表；定义网页中的东西长什么样子。

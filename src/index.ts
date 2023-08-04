@@ -71,4 +71,8 @@ import { Logger } from '@171h/log'
 
 // import './pathe/demo'
 
-import './adm-zip/demo'
+// import './adm-zip/demo'
+
+// import './fflate/demo'
+
+import './fflate/multi-files'
