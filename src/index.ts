@@ -32,7 +32,7 @@ import { Logger } from '@171h/log'
 // import './docx/demo-images'
 // import './docx/demo-images2'
 
-// import './docx/demo-text'
+import './docx/demo-text'
 
 // import './docx/demo'
 // import './docx/demo-section'
@@ -79,4 +79,6 @@ import { Logger } from '@171h/log'
 
 // import './fflate/unzip'
 
-import './url/demo'
+// import './url/demo'
+
+// import './fast-folder-size/demo'

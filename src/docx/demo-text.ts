@@ -1,5 +1,5 @@
 import * as fs from 'node:fs'
-import { BorderStyle, CheckBox, Document, HeadingLevel, IBorderOptions, Packer, Paragraph, SectionType, SymbolRun, TextRun, UnderlineType } from 'docx'
+import { BorderStyle, CheckBox, Document, HeadingLevel, IBorderOptions, Packer, Paragraph, SectionType, SymbolRun, TextRun, UnderlineType, convertInchesToTwip } from 'docx'
 
 const doc = new Document({
   sections: [{
@@ -100,6 +100,27 @@ const doc = new Document({
           right: 720,
         },
       }),
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: 'My awesome text here for my university dissertation.',
+            size: 36,
+            // vanish: true,
+            specVanish: true,
+          }),
+        ],
+        indent: {
+          start: 720,
+        },
+        // indent: {
+        //   start: 720,
+        //   end: 720,
+        //   firstLine: 720,
+        //   hanging: 720,
+        //   left: 720,
+        //   right: 720,
+        // },
+      }),
     ],
   }],
 })
@@ -107,3 +128,5 @@ const doc = new Document({
 Packer.toBuffer(doc).then((buffer) => {
   fs.writeFileSync('./src/docx/demo-text.docx', buffer)
 })
+
+console.log('convertInchesToTwip', convertInchesToTwip(1))
