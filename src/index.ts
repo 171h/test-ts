@@ -32,7 +32,7 @@ import { Logger } from '@171h/log'
 // import './docx/demo-images'
 // import './docx/demo-images2'
 
-import './docx/demo-text'
+// import './docx/demo-text'
 
 // import './docx/demo'
 // import './docx/demo-section'
@@ -53,6 +53,8 @@ import './docx/demo-text'
 // import './is-url-http/demo'
 
 // import './path/demo'
+// import './path/method'
+
 // import './path/__dirname'
 
 // const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -82,3 +84,5 @@ import './docx/demo-text'
 // import './url/demo'
 
 // import './fast-folder-size/demo'
+
+import './defu/demo'
