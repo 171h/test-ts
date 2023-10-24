@@ -40,7 +40,7 @@ import { Logger } from '@171h/log'
 // import './jss-cli/demo'
 
 // import './docx/demo-bullet-points'
-import './docx/demo-paragraph-spacing'
+// import './docx/demo-paragraph-spacing'
 
 // main()
 
@@ -87,3 +87,9 @@ import './docx/demo-paragraph-spacing'
 // import './fast-folder-size/demo'
 
 // import './defu/demo'
+
+// import './design-pattern/singleton'
+
+// import './design-pattern/iterator'
+
+import './design-pattern/decorate'
