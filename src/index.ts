@@ -92,4 +92,8 @@ import { Logger } from '@171h/log'
 
 // import './design-pattern/iterator'
 
-import './design-pattern/decorate'
+// import './design-pattern/decorate'
+
+// import './design-pattern/stratege'
+
+import './design-pattern/proxy'
