@@ -96,4 +96,8 @@ import { Logger } from '@171h/log'
 
 // import './design-pattern/stratege'
 
-import './design-pattern/proxy'
+// import './design-pattern/proxy'
+
+// import './changelogen'
+
+import './reg'
