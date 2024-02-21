@@ -100,4 +100,7 @@ import { Logger } from '@171h/log'
 
 // import './changelogen'
 
-import './reg'
+// import './reg'
+
+// import './fflate-unzip2/demo'
+import './fflate/unzipmpp'

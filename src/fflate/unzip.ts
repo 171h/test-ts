@@ -41,4 +41,4 @@ logger.info('massive:str:after', fflate.strFromU8(massive['dir1/nested/你好.tx
 logger.info('massive:img:after', massive['superTinyFile.jpg'])
 
 const modifiedZip = fflate.zipSync(massive)
-fs.writeFileSync(path.join(__dirname, './temp/modified.zip'), Buffer.from(modifiedZip))
+// fs.writeFileSync(path.join(__dirname, './temp/modified.zip'), Buffer.from(modifiedZip))
