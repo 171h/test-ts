@@ -1,6 +1,7 @@
 export class Parent {
   private name: string
   private age: number
+  static id = 123
 
   constructor() {
     this.name = 'hwj'
@@ -14,6 +15,10 @@ export class Parent {
   setAge(age: number) {
     this.age = age
   }
+
+  show() {
+    console.log(`name: ${this.name}; age: ${this.age}; id: ${Parent.id}`)
+  }
 }
 
 class Student extends Parent {
@@ -23,8 +28,17 @@ class Student extends Parent {
 }
 
 class Teacher extends Parent {
+  constructor() {
+    super()
+    Parent.id = 456
+  }
+
   work() {
     console.log('我是老师，正在教学....')
+  }
+
+  setAge(age: number): void {
+    console.log(age)
   }
 }
 
@@ -37,6 +51,34 @@ t.setAge(32)
 
 s.work()
 t.work()
+s.show()
+t.show()
+
+interface Jump {
+  jump(): void
+}
+
+interface Go {
+  go(): void
+}
+
+// 抽象类
+abstract class Animal implements Jump, Go {
+  go(): void {
+    throw new Error('Method not implemented.')
+  }
+
+  jump(): void {
+    throw new Error('Method not implemented.')
+  }
+  public abstract eat(): void
+}
+
+class Dog extends Animal {
+  public eat(): void {
+    console.log('I am a dog, I am eating...')
+  }
+}
 
 export function testFn(): void
 export function testFn(options: { name: string; age: number }): void

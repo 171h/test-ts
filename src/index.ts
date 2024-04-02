@@ -105,4 +105,6 @@ import { Logger } from '@171h/log'
 // import './fflate-unzip2/demo'
 // import './fflate/unzipmpp'
 
-import './class/hello-world'
+// import './class/hello-world'
+
+import './mpxrs/demo'
