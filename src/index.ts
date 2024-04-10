@@ -107,4 +107,6 @@ import { Logger } from '@171h/log'
 
 // import './class/hello-world'
 
-import './mpxrs/demo'
+// import './mpxrs/demo'
+
+import './enum'
