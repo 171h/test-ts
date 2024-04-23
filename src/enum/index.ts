@@ -20,3 +20,26 @@ const colorNumber = 0 // 假设这是您手头的枚举值
 const colorName = Color[colorNumber]
 
 console.log(colorName) // 输出: "Red"
+
+export class EnumHelper {
+  static getEnumIndex(enumType: any, value: any): number {
+    let index = -1
+    for (const key in enumType) {
+      if (enumType[key] === value) {
+        index = Number.parseInt(key)
+        break
+      }
+    }
+    return index
+  }
+
+  static getInstance(enumType: any, value: number): T {
+    return enumType[value]
+  }
+}
+
+console.log(EnumHelper.getEnumIndex(Color, 'Green'))
+console.log('EnumHelper.getInstance', EnumHelper.getInstance(Color, 1))
+console.log('EnumHelper.getInstance', EnumHelper.getInstance(TaskType, 1))
+console.log('EnumHelper.getInstance', EnumHelper.getInstance(TaskType, 2))
+console.log('EnumHelper.getInstance', EnumHelper.getInstance(TaskType, 3))
