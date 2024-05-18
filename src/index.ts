@@ -110,4 +110,5 @@ import { Logger } from '@171h/log'
 // import './mpxrs/demo'
 
 // import './enum'
-import './function/index'
+// import './function/index'
+import './map'
