@@ -111,4 +111,5 @@ import { Logger } from '@171h/log'
 
 // import './enum'
 // import './function/index'
-import './map'
+// import './map'
+import './for'
