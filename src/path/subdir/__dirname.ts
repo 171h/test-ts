@@ -2,7 +2,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { Logger } from '@171h/log'
 
-const logger = new Logger('src/path/subdir/demo.ts')
+const logger = new Logger('src/path/subdir/__dirname.ts')
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
