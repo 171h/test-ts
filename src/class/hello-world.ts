@@ -2,9 +2,11 @@ export class Parent {
   private name: string
   private age: number
   static id = 123
+  test=''
 
   constructor() {
-    this.name = 'hwj'
+    // this.name = 'hwj'
+    console.log('this.name = \'hwj\'', this.name = 'hwj')
     this.age = 32
   }
 
