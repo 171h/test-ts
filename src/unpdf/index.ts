@@ -55,6 +55,6 @@ for (const file of files) {
     const height = (await pdf.getPage(1)).getViewport({ scale: 1 }).height / 28.3498
     const mappableUnit = getMappableUnit([width, height])
     await pdf.destroy()
-    const fileStr = `${mappableUnit} : ${file} (${width.toFixed(2)} x ${height.toFixed(2)})`
+    const fileStr = `${mappableUnit}:\t ${file} (${width.toFixed(2)} x ${height.toFixed(2)})`
     console.log(fileStr)
 }
