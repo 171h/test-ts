@@ -26,6 +26,9 @@ importers:
       debounce:
         specifier: ^2.0.0
         version: 2.0.0
+      decimal.js:
+        specifier: ^10.4.3
+        version: 10.4.3
       defu:
         specifier: ^6.1.4
         version: 6.1.4
@@ -92,6 +95,9 @@ importers:
       sharp-ico:
         specifier: ^0.1.5
         version: 0.1.5
+      unpdf:
+        specifier: ^1.0.5
+        version: 1.0.5
       untyped:
         specifier: ^1.4.2
         version: 1.4.2
@@ -1585,6 +1591,9 @@ packages:
     peerDependenciesMeta:
       supports-color:
         optional: true
+
+  decimal.js@10.4.3:
+    resolution: {integrity: sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==}
 
   decode-bmp@0.2.1:
     resolution: {integrity: sha512-NiOaGe+GN0KJqi2STf24hfMkFitDUaIoUU3eKvP/wAbLe8o6FuW5n/x7MHPR0HKvBokp6MQY/j7w8lewEeVCIA==}
@@ -3591,6 +3600,14 @@ packages:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
     engines: {node: '>= 10.0.0'}
 
+  unpdf@1.0.5:
+    resolution: {integrity: sha512-f06b1bT0Cu96UpQmU4wQbir4nJrZ8kMU9dC3zUg7Ac+Sy5iKuh/aHq58rlyk6ggue0xjhed2Q5uu0AJVSl7qHA==}
+    peerDependencies:
+      '@napi-rs/canvas': ^0.1.69
+    peerDependenciesMeta:
+      '@napi-rs/canvas':
+        optional: true
+
   untildify@4.0.0:
     resolution: {integrity: sha512-KK8xQ1mkzZeg9inewmFVDNkg3l5LUhoq9kN6iWYB/CC9YMG8HA+c1Q8HwDe6dEX7kErrEVNVBO3fWsVq5iDgtw==}
     engines: {node: '>=8'}
@@ -5194,6 +5211,8 @@ snapshots:
   debug@4.3.4:
     dependencies:
       ms: 2.1.2
+
+  decimal.js@10.4.3: {}
 
   decode-bmp@0.2.1:
     dependencies:
@@ -7367,6 +7386,8 @@ snapshots:
       '@types/unist': 2.0.10
 
   universalify@2.0.1: {}
+
+  unpdf@1.0.5: {}
 
   untildify@4.0.0: {}
 

@@ -105,7 +105,7 @@ import { Logger } from '@171h/log'
 // import './fflate-unzip2/demo'
 // import './fflate/unzipmpp'
 
-import './class/hello-world'
+// import './class/hello-world'
 
 // import './mpxrs/demo'
 
@@ -118,4 +118,8 @@ import './class/hello-world'
 // import './path/__dirname'
 // import './class/hello-world'
 // import './decorator'
+// export * from  './currying'
+// import './decimal'
 
+// import './import.meta'
+import './unpdf'
