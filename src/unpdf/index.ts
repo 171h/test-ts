@@ -1,8 +1,6 @@
-import { extractText, getDocumentProxy } from 'unpdf'
+import { getDocumentProxy } from 'unpdf'
 import fs from 'fs-extra'
 import path from 'pathe'
-
-const buffer = await fs.readFile('e:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（整理）/缤纷里/建筑/PDF/A-00-00-01_建筑施工图设计说明（一）.pdf')
 
 async function getPdfSize(buffer: Buffer) {
     const pdf = await getDocumentProxy(new Uint8Array(buffer))
@@ -51,8 +49,7 @@ const files = await fs.readdir(pdfFolder)
 for (const file of files) {
     const buffer = await fs.readFile(path.join(pdfFolder, file))
     const pdf = await getDocumentProxy(new Uint8Array(buffer))
-    const width = (await pdf.getPage(1)).getViewport({ scale: 1 }).width / 28.3498
-    const height = (await pdf.getPage(1)).getViewport({ scale: 1 }).height / 28.3498
+    const [width, height] = await getPdfSize(buffer)
     const mappableUnit = getMappableUnit([width, height])
     await pdf.destroy()
     const fileStr = `${mappableUnit}:\t ${file} (${width.toFixed(2)} x ${height.toFixed(2)})`
