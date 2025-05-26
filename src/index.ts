@@ -122,4 +122,5 @@ import { Logger } from '@171h/log'
 // import './decimal'
 
 // import './import.meta'
-import './unpdf'
+// import './unpdf'
+import './diff-files'
