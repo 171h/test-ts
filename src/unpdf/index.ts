@@ -43,10 +43,14 @@ function getMappableUnit(size: [number, number]) {
     }
 }
 
-const pdfFolder = 'e:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（整理）/缤纷里/建筑/PDF'
+const pdfFolder = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（整理）/缤纷里/结构/PDF'
 
-const files = await fs.readdir(pdfFolder)
+const files = fs.readdirSync(pdfFolder, { encoding: 'utf-8', recursive: true })
+
 for (const file of files) {
+    if(!file.endsWith('.pdf')) 
+        continue
+
     const buffer = await fs.readFile(path.join(pdfFolder, file))
     const pdf = await getDocumentProxy(new Uint8Array(buffer))
     const [width, height] = await getPdfSize(buffer)
