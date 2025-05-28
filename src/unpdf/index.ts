@@ -29,7 +29,7 @@ function getMappableUnit(size: [number, number]) {
             return 'A2+'
         return 'A2'
     } else if (width > 42.0 && height > 29.7) {
-        if (width >  42.0 * 1.2)
+        if (width > 42.0 * 1.2)
             return 'A3+'
         return 'A3'
     } else if (width > 29.7 && height > 21.0) {
@@ -43,19 +43,25 @@ function getMappableUnit(size: [number, number]) {
     }
 }
 
-const pdfFolder = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（整理）/缤纷里/结构/PDF'
+const pdfFolder = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图/20250526金山RDE暖通竣工图(交通委+缤纷里)/缤纷里'
 
-const files = fs.readdirSync(pdfFolder, { encoding: 'utf-8', recursive: true })
+async function print(pdfFolder: string) {
+    const files = fs.readdirSync(pdfFolder, { encoding: 'utf-8', recursive: true })
 
-for (const file of files) {
-    if(!file.endsWith('.pdf')) 
-        continue
+    for (const file of files) {
+        if (!file.endsWith('.pdf'))
+            continue
 
-    const buffer = await fs.readFile(path.join(pdfFolder, file))
-    const pdf = await getDocumentProxy(new Uint8Array(buffer))
-    const [width, height] = await getPdfSize(buffer)
-    const mappableUnit = getMappableUnit([width, height])
-    await pdf.destroy()
-    const fileStr = `${mappableUnit}:\t ${file} (${width.toFixed(2)} x ${height.toFixed(2)})`
-    console.log(fileStr)
+        const buffer = await fs.readFile(path.join(pdfFolder, file))
+        const pdf = await getDocumentProxy(new Uint8Array(buffer))
+        const [width, height] = await getPdfSize(buffer)
+        const mappableUnit = getMappableUnit([width, height])
+        await pdf.destroy()
+        const fileStr = `${mappableUnit}:\t ${file} (${width.toFixed(2)} x ${height.toFixed(2)})`
+        console.log(fileStr)
+    }
 }
+
+print(pdfFolder)
+    .then(() => console.log('Done!'))
+    .catch(err => console.error('Error:', err))
