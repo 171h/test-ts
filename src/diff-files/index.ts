@@ -78,6 +78,15 @@ function printDiff(inputDir: string, outputDir: string, options?: { diabledDetai
     })
 }
 
+function getDrawingID(fileName: string) {
+    const regex = /(S-[0-9]{2}-[0-9]{2}-[0-9]{2}-?[0-9]*)[\._]/
+    const matches = regex.exec(fileName)
+    if (matches) {
+        return matches[1]
+    }
+    return ''
+}
+
 function renameFiles(inputDir: string, outputDir: string, options?: { rename?: boolean }) {
     console.log('-------- RenameFiles start --------')
 
@@ -85,6 +94,11 @@ function renameFiles(inputDir: string, outputDir: string, options?: { rename?: b
     const outputFiles = getFileName(outputDir, { exts: ['.pdf'] })
     const diffFiles1 = diff(inputFiles, outputFiles)
     const diffFiles2 = diff(outputFiles, inputFiles)
+    const outputFilesIDMap: Record<string, string> = {}
+    outputFiles.forEach(file => {
+        const fileID = getDrawingID(file)
+        outputFilesIDMap[fileID] = file
+    })
 
     console.log('Input file number:\t', inputFiles.length, `\t\t ${inputDir}`)
     console.log('Output file number:\t', outputFiles.length, `\t\t ${outputDir}`)
@@ -98,15 +112,10 @@ function renameFiles(inputDir: string, outputDir: string, options?: { rename?: b
 
     const renameMap: Record<string, string> = {}
     diffFiles1.forEach(file => {
-        const filename = file.split('_')[0]
-        outputFiles.find((file2) => {
-            const includeSimilar = file2.split('_')[0] === filename
-            if (includeSimilar) {
-                renameMap[path.join(inputDir, file)] = path.join(inputDir, file2)
-                return true
-            }
-            return includeSimilar
-        })
+        const fileID = getDrawingID(file)
+        if(outputFilesIDMap[fileID]) {
+            renameMap[path.join(inputDir, file)] = path.join(inputDir, outputFilesIDMap[fileID])
+        }
     })
 
 
@@ -126,8 +135,8 @@ function renameFiles(inputDir: string, outputDir: string, options?: { rename?: b
 
 const sign0_1 = [
     [sign0, sign1, { diabledDetailLog: true }],
-    [sign0_S, sign1_S, { diabledDetailLog: true }],
-    [sign0_A, sign1_A, { diabledDetailLog: true }],
+    [sign0_S, sign1_S, { diabledDetailLog: false }],
+    [sign0_A, sign1_A, { diabledDetailLog: false }],
     [sign0_P, sign1_P, { diabledDetailLog: false }],
     [sign0_E, sign1_E, { diabledDetailLog: true }],
     [sign0_M, sign1_M, { diabledDetailLog: true }],
@@ -142,11 +151,11 @@ const sign1_2 = [
     [sign1_M, sign2_M, { diabledDetailLog: true }],
 ]
 
-sign0_1.forEach((params) => {
+sign1_2.forEach((params) => {
     // @ts-ignore
     printDiff(...params)
 
     console.log('======================================================================================')
 })
 
-// renameFiles(sign1_S, sign2_S, { rename: true })
+// renameFiles(sign0_S, sign1_S, { rename: false })
