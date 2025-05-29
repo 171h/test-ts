@@ -52,6 +52,7 @@
     "@171h/utils": "^0.4.7",
     "@types/minimist": "^1.2.5",
     "adm-zip": "^0.5.12",
+    "chalk": "^5.4.1",
     "debounce": "^2.0.0",
     "decimal.js": "^10.4.3",
     "defu": "^6.1.4",
