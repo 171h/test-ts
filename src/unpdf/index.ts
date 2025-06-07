@@ -43,7 +43,7 @@ function getMappableUnit(size: [number, number]) {
     }
 }
 
-const pdfFolder = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图/20250526金山RDE暖通竣工图(交通委+缤纷里)/缤纷里'
+const pdfFolder = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/00.未签章pdf/交通委/结构'
 
 async function print(pdfFolder: string) {
     const files = fs.readdirSync(pdfFolder, { encoding: 'utf-8', recursive: true })

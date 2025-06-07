@@ -1,7 +1,7 @@
 import path from "pathe"
 import fs from "fs-extra"
 import chalk from "chalk"
-import { c } from "ofetch/dist/shared/ofetch.8459ad38"
+import crypto from "crypto"
 
 const sign0 = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/00.未签章pdf'
 const sign0_S = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/00.未签章pdf/缤纷里/结构'
@@ -31,6 +31,8 @@ const sign3_P = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（�
 const sign3_E = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/03.签章完成/缤纷里/电气'
 const sign3_M = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/03.签章完成/缤纷里/暖通'
 const sign3_RF = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/03.签章完成/人防'
+const tiebaLeft = 'F:/00.per、work/2011.09-2015.07 - haut/贴吧'
+const tiebaRight = 'F:/Rersource/资源集合/贴吧'
 
 const inputDir = sign0_P
 const outputDir = sign1_P
@@ -46,16 +48,46 @@ function getFileName(filePath: string, options: { exts: string[], diff?: boolean
     return files
 }
 
+function calculateFileHash(filePath: string): string {
+    const fileContent = fs.readFileSync(filePath)
+    const hash = crypto.createHash('md5')
+    hash.update(new Uint8Array(fileContent.buffer))
+    return hash.digest('hex')
+}
+
+function getFileHashs(fileDir: string, options?: { exts?: string[] }) {
+    if (!fs.existsSync(fileDir)) {
+        console.error(`Directory does not exist: ${fileDir}`)
+        return {}
+    }
+
+    const files = fs.readdirSync(fileDir, { encoding: 'utf-8', recursive: true }).map(file => path.join(fileDir, file))
+    let fileHashs: Record<string, string> = {}
+    files.forEach(file => {
+        if (fs.statSync(file).isFile()) {
+            if (options && options.exts && options.exts.length > 0) {
+                if (options.exts.includes(path.extname(file).toLowerCase())) {
+                    fileHashs[file] = calculateFileHash(file)
+                }
+            } else {
+                fileHashs[file] = calculateFileHash(file)
+            }
+            console.log(fileHashs[file], `\t\t ${file}`)
+        }
+    })
+    return fileHashs
+}
+
 function diff(inputFiles: string[], outputFiles: string[]) {
     const diffFiles = inputFiles.filter(file => !outputFiles.includes(file))
     return diffFiles
 }
 
-function printDiff(inputDir: string, outputDir: string, options?: { diabledDetailLog: boolean }) {
+function printDiff(inputDir: string, outputDir: string, options?: { diabledDetailLog: boolean, exts?: string[] }) {
     console.log('-------- 本程序使用文件名称对比两个文件夹中的文件差异 --------')
 
-    const inputFiles = getFileName(inputDir, { exts: ['.pdf'], diff: true })
-    const outputFiles = getFileName(outputDir, { exts: ['.pdf'] })
+    const inputFiles = getFileName(inputDir, { exts: options?.exts || [], diff: true })
+    const outputFiles = getFileName(outputDir, { exts: options?.exts || [] })
     const diffFiles1 = diff(inputFiles, outputFiles)
     const diffFiles2 = diff(outputFiles, inputFiles)
 
@@ -84,8 +116,8 @@ function printDiff(inputDir: string, outputDir: string, options?: { diabledDetai
 }
 
 function getDrawingID(fileName: string) {
-    const regex = /(S-[0-9]{2}-[0-9]{2}-[0-9]{2}-?[0-9]*)[\._]/
-    const matches = regex.exec(fileName)
+    const regexS = /(S-[0-9]{2}-[0-9]{2}-[0-9]{2}-?[0-9]*)[\._]/
+    const matches = regexS.exec(fileName)
     if (matches) {
         return matches[1]
     }
@@ -118,7 +150,7 @@ function renameFiles(inputDir: string, outputDir: string, options?: { rename?: b
     const renameMap: Record<string, string> = {}
     diffFiles1.forEach(file => {
         const fileID = getDrawingID(file)
-        if(outputFilesIDMap[fileID]) {
+        if (outputFilesIDMap[fileID]) {
             renameMap[path.join(inputDir, file)] = path.join(inputDir, outputFilesIDMap[fileID])
         }
     })
@@ -138,59 +170,60 @@ function renameFiles(inputDir: string, outputDir: string, options?: { rename?: b
     }
 }
 
-const sign0_1 = [
-    [sign0, sign1, { diabledDetailLog: true }],
-    [sign0_S, sign1_S, { diabledDetailLog: false }],
-    [sign0_A, sign1_A, { diabledDetailLog: false }],
-    [sign0_P, sign1_P, { diabledDetailLog: false }],
-    [sign0_E, sign1_E, { diabledDetailLog: true }],
-    [sign0_M, sign1_M, { diabledDetailLog: true }],
-    [sign0_RF, sign1_RF, { diabledDetailLog: false }],
-]
+function diffSigns() {
+    const sign0_1 = [
+        [sign0, sign1, { diabledDetailLog: true }],
+        [sign0_S, sign1_S, { diabledDetailLog: false }],
+        [sign0_A, sign1_A, { diabledDetailLog: false }],
+        [sign0_P, sign1_P, { diabledDetailLog: false }],
+        [sign0_E, sign1_E, { diabledDetailLog: true }],
+        [sign0_M, sign1_M, { diabledDetailLog: true }],
+        [sign0_RF, sign1_RF, { diabledDetailLog: false }],
+    ]
 
-const sign1_2 = [
-    [sign1, sign2, { diabledDetailLog: true }],
-    [sign1_S, sign2_S, { diabledDetailLog: false }],
-    [sign1_A, sign2_A, { diabledDetailLog: false }],
-    [sign1_P, sign2_P, { diabledDetailLog: true }],
-    [sign1_E, sign2_E, { diabledDetailLog: true }],
-    [sign1_M, sign2_M, { diabledDetailLog: true }],
-    [sign1_RF, sign2_RF, { diabledDetailLog: false }],
-]
+    const sign1_2 = [
+        [sign1, sign2, { diabledDetailLog: true }],
+        [sign1_S, sign2_S, { diabledDetailLog: false }],
+        [sign1_A, sign2_A, { diabledDetailLog: false }],
+        [sign1_P, sign2_P, { diabledDetailLog: false }],
+        [sign1_E, sign2_E, { diabledDetailLog: false }],
+        [sign1_M, sign2_M, { diabledDetailLog: false }],
+        [sign1_RF, sign2_RF, { diabledDetailLog: false }],
+    ]
 
-const sign2_3 = [
-    [sign2, sign3, { diabledDetailLog: true }],
-    [sign2_S, sign3_S, { diabledDetailLog: true }],
-    [sign2_A, sign3_A, { diabledDetailLog: true }],
-    [sign2_P, sign3_P, { diabledDetailLog: true }],
-    [sign2_E, sign3_E, { diabledDetailLog: true }],
-    [sign2_M, sign3_M, { diabledDetailLog: true }],
-    [sign2_RF, sign3_RF, { diabledDetailLog: true }],
-]
+    const sign2_3 = [
+        [sign2, sign3, { diabledDetailLog: true }],
+        [sign2_S, sign3_S, { diabledDetailLog: false }],
+        [sign2_A, sign3_A, { diabledDetailLog: false }],
+        [sign2_P, sign3_P, { diabledDetailLog: false }],
+        [sign2_E, sign3_E, { diabledDetailLog: false }],
+        [sign2_M, sign3_M, { diabledDetailLog: false }],
+        [sign2_RF, sign3_RF, { diabledDetailLog: false }],
+    ]
 
-console.log(chalk.blue('sign0_1******************************************************************************'))
+    console.log(chalk.blue('sign0_1******************************************************************************'))
 
-sign0_1.forEach((params) => {
-    // @ts-ignore
-    printDiff(...params)
-})
+    sign0_1.forEach((params) => {
+        // @ts-ignore
+        printDiff(...params)
+    })
 
-console.log(chalk.blue('sign1_2******************************************************************************'))
+    console.log(chalk.blue('sign1_2******************************************************************************'))
 
-sign1_2.forEach((params) => {
-    // @ts-ignore
-    printDiff(...params)
-})
+    sign1_2.forEach((params) => {
+        // @ts-ignore
+        printDiff(...params)
+    })
 
-console.log(chalk.blue('sign2_3******************************************************************************'))
+    console.log(chalk.blue('sign2_3******************************************************************************'))
 
-sign2_3.forEach((params) => {
-    // @ts-ignore
-    printDiff(...params)
-})
+    sign2_3.forEach((params) => {
+        // @ts-ignore
+        printDiff(...params)
+    })
 
-console.log(chalk.blue('End******************************************************************************'))
-// renameFiles(sign0_S, sign1_S, { rename: false })
+    console.log(chalk.blue('End******************************************************************************'))
+}
 
 function deleteEmptyDirectories(directory: string, recursive?: boolean) {
     if (!fs.existsSync(directory)) {
@@ -222,7 +255,12 @@ function deleteEmptyDirectories(directory: string, recursive?: boolean) {
     console.log(`Empty directories count: ${num}`)
 }
 
-const gitDir = 'E:/Users/171h/OneDrive/乐高商业街/.git/objects'
-const testDIr = 'E:/Users/171h/Desktop/temp'
-
+// const gitDir = 'E:/Users/171h/OneDrive/乐高商业街/.git/objects'
+// const testDIr = 'E:/Users/171h/Desktop/temp'
 // deleteEmptyDirectories(testDIr, true)
+// renameFiles(sign0_S, sign1_S, { rename: false })
+diffSigns()
+
+// getFileHashs(sign3_RF, { exts: ['.pdf'] })
+
+// printDiff(tiebaLeft, tiebaRight)
