@@ -38,8 +38,11 @@ const inputDir = sign0_P
 const outputDir = sign1_P
 
 
-function getFileName(filePath: string, options: { exts: string[], diff?: boolean }) {
-    let files = fs.readdirSync(filePath, { encoding: 'utf-8', recursive: true }).map(file => path.basename(file))
+function getFileName(filePath: string, options: { exts: string[], diff?: boolean, onlyFile?:  boolean }) {
+    let files = fs.readdirSync(filePath, { encoding: 'utf-8', recursive: true })
+    if(options.onlyFile)
+        files = files.filter(file => fs.statSync(path.join(filePath, file)).isFile())
+    files = files.map(file => path.basename(file))
     if (options.diff) {
         files = Array.from(new Set(files))
     }
@@ -86,8 +89,8 @@ function diff(inputFiles: string[], outputFiles: string[]) {
 function printDiff(inputDir: string, outputDir: string, options?: { diabledDetailLog: boolean, exts?: string[] }) {
     console.log('-------- 本程序使用文件名称对比两个文件夹中的文件差异 --------')
 
-    const inputFiles = getFileName(inputDir, { exts: options?.exts || [], diff: true })
-    const outputFiles = getFileName(outputDir, { exts: options?.exts || [] })
+    const inputFiles = getFileName(inputDir, { exts: options?.exts || [], diff: true, onlyFile: true })
+    const outputFiles = getFileName(outputDir, { exts: options?.exts || [], onlyFile: true })
     const diffFiles1 = diff(inputFiles, outputFiles)
     const diffFiles2 = diff(outputFiles, inputFiles)
 
