@@ -125,3 +125,5 @@ import { Logger } from '@171h/log'
 // import './unpdf'
 // import './diff-files'
 // import './reg'
+
+import './instantiation'
