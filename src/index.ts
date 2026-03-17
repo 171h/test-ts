@@ -126,4 +126,6 @@ import { Logger } from '@171h/log'
 // import './diff-files'
 // import './reg'
 
-import './instantiation'
+// import './instantiation'
+
+import './mathjs'

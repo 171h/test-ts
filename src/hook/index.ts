@@ -1,4 +1,4 @@
-import { Hookable } from 'hookable'
+import { Hookable, HookableCore } from 'hookable'
 
 
 class Person extends Hookable {
