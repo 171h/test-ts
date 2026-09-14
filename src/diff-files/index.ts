@@ -3,46 +3,18 @@ import fs from "fs-extra"
 import chalk from "chalk"
 import crypto from "crypto"
 
-const sign0 = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/00.未签章pdf'
-const sign0_S = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/00.未签章pdf/缤纷里/结构'
-const sign0_A = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/00.未签章pdf/缤纷里/建筑'
-const sign0_P = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/00.未签章pdf/缤纷里/给排水'
-const sign0_E = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/00.未签章pdf/缤纷里/电气'
-const sign0_M = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/00.未签章pdf/缤纷里/暖通'
-const sign0_RF = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/00.未签章pdf/人防'
-const sign1 = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/01.施工已签章'
-const sign1_S = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/01.施工已签章/缤纷里/结构'
-const sign1_A = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/01.施工已签章/缤纷里/建筑'
-const sign1_P = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/01.施工已签章/缤纷里/给排水'
-const sign1_E = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/01.施工已签章/缤纷里/电气'
-const sign1_M = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/01.施工已签章/缤纷里/暖通'
-const sign1_RF = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/01.施工已签章/人防'
-const sign2 = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/02.施工、设计已签章'
-const sign2_S = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/02.施工、设计已签章/缤纷里/结构'
-const sign2_A = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/02.施工、设计已签章/缤纷里/建筑'
-const sign2_P = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/02.施工、设计已签章/缤纷里/给排水'
-const sign2_E = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/02.施工、设计已签章/缤纷里/电气'
-const sign2_M = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/02.施工、设计已签章/缤纷里/暖通'
-const sign2_RF = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/02.施工、设计已签章/人防'
-const sign3 = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/03.签章完成'
-const sign3_S = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/03.签章完成/缤纷里/结构'
-const sign3_A = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/03.签章完成/缤纷里/建筑'
-const sign3_P = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/03.签章完成/缤纷里/给排水'
-const sign3_E = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/03.签章完成/缤纷里/电气'
-const sign3_M = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/03.签章完成/缤纷里/暖通'
-const sign3_RF = 'E:/Users/171h/OneDrive/乐高商业街/02.图纸/竣工图（签章）/03.签章完成/人防'
-const tiebaLeft = 'F:/00.per、work/2011.09-2015.07 - haut/贴吧'
-const tiebaRight = 'F:/Rersource/资源集合/贴吧'
-
-const inputDir = sign0_P
-const outputDir = sign1_P
+const left = 'D:/171h/Documents/海南果蔬项目/02.图纸/00整理/25.7.22收全套PDF图/新建文件夹'
+const right = 'D:/171h/Documents/海南果蔬项目/02.图纸/00整理/25.7.22收全套PDF图/新建文件夹 (2)'
 
 
-function getFileName(filePath: string, options: { exts: string[], diff?: boolean, onlyFile?:  boolean }) {
+function getFileName(filePath: string, options: { exts: string[], diff?: boolean, onlyFile?: boolean, dir?: boolean }) {
     let files = fs.readdirSync(filePath, { encoding: 'utf-8', recursive: true })
     if(options.onlyFile)
         files = files.filter(file => fs.statSync(path.join(filePath, file)).isFile())
-    files = files.map(file => path.basename(file))
+    // dir 为 true 时保留子文件夹名（相对 filePath 的路径，如 sub/a.pdf），否则只保留文件名（a.pdf）
+    files = options.dir
+        ? files.map(file => path.normalize(file))
+        : files.map(file => path.basename(file))
     if (options.diff) {
         files = Array.from(new Set(files))
     }
@@ -89,10 +61,12 @@ function diff(inputFiles: string[], outputFiles: string[]) {
 function printDiff(inputDir: string, outputDir: string, options?: { diabledDetailLog: boolean, exts?: string[] }) {
     console.log('-------- 本程序使用文件名称对比两个文件夹中的文件差异 --------')
 
-    const inputFiles = getFileName(inputDir, { exts: options?.exts || [], diff: true, onlyFile: true })
-    const outputFiles = getFileName(outputDir, { exts: options?.exts || [], onlyFile: true })
+    const inputFiles = getFileName(inputDir, { exts: options?.exts || [], diff: false, onlyFile: true, dir: true })
+    const outputFiles = getFileName(outputDir, { exts: options?.exts || [], diff: false, onlyFile: true, dir: true })
     const diffFiles1 = diff(inputFiles, outputFiles)
     const diffFiles2 = diff(outputFiles, inputFiles)
+
+    // console.log(inputFiles[156])
 
     console.log('Input file number:\t', inputFiles.length, `\t\t ${inputDir}`)
     console.log('Output file number:\t', outputFiles.length, `\t\t ${outputDir}`)
@@ -175,52 +149,12 @@ function renameFiles(inputDir: string, outputDir: string, options?: { rename?: b
 
 function diffSigns() {
     const sign0_1 = [
-        [sign0, sign1, { diabledDetailLog: true }],
-        [sign0_S, sign1_S, { diabledDetailLog: false }],
-        [sign0_A, sign1_A, { diabledDetailLog: false }],
-        [sign0_P, sign1_P, { diabledDetailLog: false }],
-        [sign0_E, sign1_E, { diabledDetailLog: true }],
-        [sign0_M, sign1_M, { diabledDetailLog: true }],
-        [sign0_RF, sign1_RF, { diabledDetailLog: false }],
-    ]
-
-    const sign1_2 = [
-        [sign1, sign2, { diabledDetailLog: true }],
-        [sign1_S, sign2_S, { diabledDetailLog: false }],
-        [sign1_A, sign2_A, { diabledDetailLog: false }],
-        [sign1_P, sign2_P, { diabledDetailLog: false }],
-        [sign1_E, sign2_E, { diabledDetailLog: false }],
-        [sign1_M, sign2_M, { diabledDetailLog: false }],
-        [sign1_RF, sign2_RF, { diabledDetailLog: false }],
-    ]
-
-    const sign2_3 = [
-        [sign2, sign3, { diabledDetailLog: true }],
-        [sign2_S, sign3_S, { diabledDetailLog: false }],
-        [sign2_A, sign3_A, { diabledDetailLog: false }],
-        [sign2_P, sign3_P, { diabledDetailLog: false }],
-        [sign2_E, sign3_E, { diabledDetailLog: false }],
-        [sign2_M, sign3_M, { diabledDetailLog: false }],
-        [sign2_RF, sign3_RF, { diabledDetailLog: false }],
+        [left, right, { diabledDetailLog: false }]
     ]
 
     console.log(chalk.blue('sign0_1******************************************************************************'))
 
     sign0_1.forEach((params) => {
-        // @ts-ignore
-        printDiff(...params)
-    })
-
-    console.log(chalk.blue('sign1_2******************************************************************************'))
-
-    sign1_2.forEach((params) => {
-        // @ts-ignore
-        printDiff(...params)
-    })
-
-    console.log(chalk.blue('sign2_3******************************************************************************'))
-
-    sign2_3.forEach((params) => {
         // @ts-ignore
         printDiff(...params)
     })
