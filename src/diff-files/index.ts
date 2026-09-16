@@ -3,9 +3,16 @@ import fs from "fs-extra"
 import chalk from "chalk"
 import crypto from "crypto"
 
-const left = 'D:/171h/Documents/海南果蔬项目/02.图纸/00整理/25.7.22收全套PDF图/新建文件夹'
-const right = 'D:/171h/Documents/海南果蔬项目/02.图纸/00整理/25.7.22收全套PDF图/新建文件夹 (2)'
+const left = 'D:/171h/Documents/海南果蔬项目/02.图纸/02.最新图纸（整理）'
+const right = 'E:/02.最新图纸（整理）'
 
+/**
+ * 总开关：是否使用 hash 值对比文件内容
+ * - true : 文件名 + 内容 hash 双重对比（能发现同名但内容不同的文件，需读取全部文件，较慢）
+ * - false: 仅按文件名（相对路径）对比（速度快）
+ * 单次调用可用 printDiff 的 { hash: true/false } 覆盖此开关
+ */
+const USE_HASH_COMPARE = false
 
 function getFileName(filePath: string, options: { exts: string[], diff?: boolean, onlyFile?: boolean, dir?: boolean }) {
     let files = fs.readdirSync(filePath, { encoding: 'utf-8', recursive: true })
@@ -24,33 +31,69 @@ function getFileName(filePath: string, options: { exts: string[], diff?: boolean
 }
 
 function calculateFileHash(filePath: string): string {
-    const fileContent = fs.readFileSync(filePath)
-    const hash = crypto.createHash('md5')
-    hash.update(new Uint8Array(fileContent.buffer))
-    return hash.digest('hex')
+    // 直接对 Buffer 求哈希，避免 fileContent.buffer 携带池化内存中的多余字节，导致哈希结果不稳定
+    return crypto.createHash('md5').update(fs.readFileSync(filePath)).digest('hex')
+}
+
+/**
+ * 收集目录下的所有文件，返回「相对 fileDir 的路径 -> 绝对路径」映射
+ * exts 为空时收集全部文件
+ */
+function collectFiles(fileDir: string, options?: { exts?: string[] }) {
+    const fileMap = new Map<string, string>()
+    if (!fs.existsSync(fileDir)) {
+        console.error(`Directory does not exist: ${fileDir}`)
+        return fileMap
+    }
+
+    const exts = options?.exts
+    fs.readdirSync(fileDir, { encoding: 'utf-8', recursive: true }).forEach(file => {
+        const absPath = path.join(fileDir, file)
+        if (!fs.statSync(absPath).isFile())
+            return
+        const relativePath = path.normalize(file)
+        if (exts && exts.length > 0 && !exts.includes(path.extname(relativePath).toLowerCase()))
+            return
+        fileMap.set(relativePath, absPath)
+    })
+    return fileMap
 }
 
 function getFileHashs(fileDir: string, options?: { exts?: string[] }) {
-    if (!fs.existsSync(fileDir)) {
-        console.error(`Directory does not exist: ${fileDir}`)
-        return {}
-    }
-
-    const files = fs.readdirSync(fileDir, { encoding: 'utf-8', recursive: true }).map(file => path.join(fileDir, file))
-    let fileHashs: Record<string, string> = {}
-    files.forEach(file => {
-        if (fs.statSync(file).isFile()) {
-            if (options && options.exts && options.exts.length > 0) {
-                if (options.exts.includes(path.extname(file).toLowerCase())) {
-                    fileHashs[file] = calculateFileHash(file)
-                }
-            } else {
-                fileHashs[file] = calculateFileHash(file)
-            }
-            console.log(fileHashs[file], `\t\t ${file}`)
-        }
+    const fileHashs: Record<string, string> = {}
+    collectFiles(fileDir, options).forEach((absPath) => {
+        fileHashs[absPath] = calculateFileHash(absPath)
+        console.log(fileHashs[absPath], `\t\t ${absPath}`)
     })
     return fileHashs
+}
+
+/**
+ * 对比两个目录中「相对路径相同（同名）」的文件内容（md5）
+ * 返回内容相同的文件列表，以及内容不同的文件及其哈希值
+ */
+function diffByHash(inputDir: string, outputDir: string, options?: { exts?: string[] }) {
+    const inputFiles = collectFiles(inputDir, options)
+    const outputFiles = collectFiles(outputDir, options)
+
+    const sameContent: string[] = []
+    const diffContent: { file: string, inputHash: string, outputHash: string }[] = []
+
+    inputFiles.forEach((inputAbsPath, relativePath) => {
+        const outputAbsPath = outputFiles.get(relativePath)
+        // 只对比两个目录中同时存在的同名文件，单边存在的文件已由名称对比列出
+        if (!outputAbsPath)
+            return
+
+        const inputHash = calculateFileHash(inputAbsPath)
+        const outputHash = calculateFileHash(outputAbsPath)
+        if (inputHash === outputHash)
+            sameContent.push(relativePath)
+        else
+            diffContent.push({ file: relativePath, inputHash, outputHash })
+    })
+
+    return { sameContent, diffContent }
 }
 
 function diff(inputFiles: string[], outputFiles: string[]) {
@@ -58,21 +101,31 @@ function diff(inputFiles: string[], outputFiles: string[]) {
     return diffFiles
 }
 
-function printDiff(inputDir: string, outputDir: string, options?: { diabledDetailLog: boolean, exts?: string[] }) {
-    console.log('-------- 本程序使用文件名称对比两个文件夹中的文件差异 --------')
+function printDiff(inputDir: string, outputDir: string, options?: { diabledDetailLog?: boolean, exts?: string[], hash?: boolean }) {
+    // hash 对比开关：优先使用调用参数，未指定时取全局开关 USE_HASH_COMPARE
+    const useHash = options?.hash ?? USE_HASH_COMPARE
+
+    console.log(`-------- 本程序使用文件名称${useHash ? ' + hash 值' : ''}对比两个文件夹中的文件差异 --------`)
 
     const inputFiles = getFileName(inputDir, { exts: options?.exts || [], diff: false, onlyFile: true, dir: true })
     const outputFiles = getFileName(outputDir, { exts: options?.exts || [], diff: false, onlyFile: true, dir: true })
     const diffFiles1 = diff(inputFiles, outputFiles)
     const diffFiles2 = diff(outputFiles, inputFiles)
 
+    const hashResult = useHash
+        ? diffByHash(inputDir, outputDir, { exts: options?.exts })
+        : undefined
+
     // console.log(inputFiles[156])
 
     console.log('Input file number:\t', inputFiles.length, `\t\t ${inputDir}`)
     console.log('Output file number:\t', outputFiles.length, `\t\t ${outputDir}`)
 
-    if (diffFiles1.length === 0 && diffFiles2.length === 0) {
-        console.log(chalk.green('Result: \t\t Euqal!!'))
+    if (diffFiles1.length === 0 && diffFiles2.length === 0 && (hashResult?.diffContent.length ?? 0) === 0) {
+        const hashInfo = hashResult
+            ? ` \t\t (hash equal file number: ${hashResult.sameContent.length})`
+            : ' \t\t (hash compare disabled)'
+        console.log(chalk.green(`Result: \t\t Euqal!!${hashInfo}`))
         return
     }
 
@@ -90,6 +143,17 @@ function printDiff(inputDir: string, outputDir: string, options?: { diabledDetai
     diffFiles2.forEach(file => {
         console.log(file)
     })
+
+    // 名称（相对路径）相同，但文件内容 hash 不一致的文件
+    if (hashResult && hashResult.diffContent.length > 0) {
+        console.log('-------- Same Name But Different Content By Hash --------')
+        hashResult.diffContent.forEach(({ file, inputHash, outputHash }) => {
+            console.log(chalk.yellow(file))
+            console.log(`    input : ${inputHash}`)
+            console.log(`    output: ${outputHash}`)
+        })
+        console.log(`Hash different file number: ${hashResult.diffContent.length}`)
+    }
 }
 
 function getDrawingID(fileName: string) {
@@ -148,14 +212,15 @@ function renameFiles(inputDir: string, outputDir: string, options?: { rename?: b
 }
 
 function diffSigns() {
-    const sign0_1 = [
+    // 是否使用 hash 对比由全局开关 USE_HASH_COMPARE 决定，
+    // 如需单独控制某一条，可在选项里显式写 { hash: true } 或 { hash: false } 覆盖全局开关
+    const sign0_1: [string, string, { diabledDetailLog?: boolean, exts?: string[], hash?: boolean }][] = [
         [left, right, { diabledDetailLog: false }]
     ]
 
     console.log(chalk.blue('sign0_1******************************************************************************'))
 
     sign0_1.forEach((params) => {
-        // @ts-ignore
         printDiff(...params)
     })
 
