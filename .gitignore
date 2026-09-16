@@ -13,3 +13,6 @@ temp
 ~$*.doc*
 
 /*/mpxrs/*.json
+
+# find-duplicates.ts --html 默认生成的报告
+duplicates-report.html

@@ -42,6 +42,7 @@
     "prepublishOnly": "nr build",
     "release": "bumpp && npm publish",
     "start": "esno src/index.ts",
+    "find-duplicates": "esno src/diff-files/find-duplicates.ts",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
